@@ -42,16 +42,26 @@ app.get('/beers', (req, res) => {
   
 });
 
-// app.get('/beers/beer-:beerId', (req, res) => {
-//   let id = req.params;
-//   console.log("id")
-
-// }) 
+ app.get('/beers/beer-:beerId', (req, res) => {
+   let id = req.params.beerId;
+   console.log(id)
+   punkAPI.getBeer(id)
+    .then( beer =>{
+      res.render('random-beer',{
+        random:beer,
+        navbar:true,
+        title:beer.name,
+        footer:true
+      });
+      
+    })
+ }) 
 
 
 app.get('/random-beer', (req, res) => {
   punkAPI.getRandom()
   .then(randomBeer => {
+    console.log(randomBeer)
       res.render('random-beer',{
         random:randomBeer,
         navbar:true,
